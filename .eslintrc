@@ -14,7 +14,7 @@
     "func-names": 0,
     "indent": [2, 2],
     "max-len": ["error", { 
-      "code": 80,
+      "code": 120,
       "ignoreComments": true
     }],
     "no-console": [ 1, {"allow": ["info", "error", "warn"]}],
