@@ -128,7 +128,7 @@ function getAngleBetweenVectors(x, y, a, b) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  throw new Error('Not implemented');
+  return +value.toString().slice(-1);
 }
 
 
@@ -144,11 +144,11 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-  throw new Error('Not implemented');
+  return  +value;
 }
 
 /**
- * Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c.
+ * Returns a diagonal le rectangungth of thelar parallelepiped given by its sides a,b,c.
  *
  * @param {number} a
  * @param {number} b
@@ -161,7 +161,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a, b, c) {
-  throw new Error('Not implemented');
+  return Math.sqrt(a * a + b * b + c * c);
 }
 
 /**
@@ -182,7 +182,7 @@ function getParallelipidedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  throw new Error('Not implemented');
+  return (num / Math.pow(10, pow)).toFixed() * Math.pow(10, pow);
 }
 
 /**
@@ -203,7 +203,17 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-  throw new Error('Not implemented');
+  if (n <= 1) return false;
+
+  if (n <= 3) return true;
+
+  if (n % 2 === 0 || n % 3 === 0) return false;
+
+  for (let i = 5; i * i <= n; i += 6) {
+    if (n % i === 0 || n % (i + 2) === 0) return false;
+  }
+
+  return true;
 }
 
 /**
@@ -222,7 +232,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  throw new Error('Not implemented');
+  return Number(value) ? Number(value) : def;
 }
 
 module.exports = {
