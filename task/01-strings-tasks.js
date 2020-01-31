@@ -283,10 +283,10 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  const arr1 = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-  const arr2 = ['♣', '♦', '♥', '♠'];
+  const i = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const j = ['♣', '♦', '♥', '♠'];
   
-  return arr1.indexOf(value.substring(0, value.length - 1)) + 13 * arr2.indexOf(value.substring(value.length - 1));
+  return i.indexOf(value.slice(0, -1)) + j.indexOf(value.slice(-1)) * 13;
 }
 
 module.exports = {
