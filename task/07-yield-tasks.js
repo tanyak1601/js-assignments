@@ -32,7 +32,46 @@
  *
  */
 function* get99BottlesOfBeer() {
-  throw new Error('Not implemented');
+  let isSecond = false;
+  let index = 99;
+  while(index >= 0) {
+    if (index > 2) {
+      if (!isSecond) {
+        isSecond = !isSecond;
+        yield `${index} bottles of beer on the wall, ${index} bottles of beer.`;
+      } else {
+        isSecond = !isSecond;
+        yield `Take one down and pass it around, ${--index} bottles of beer on the wall.`;
+      }
+    } else if (index === 2) {
+      if (!isSecond) {
+        isSecond = !isSecond;
+        yield `${index} bottles of beer on the wall, ${index} bottles of beer.`;
+      } else {
+        isSecond = !isSecond;
+        yield `Take one down and pass it around, ${--index} bottle of beer on the wall.`;
+      }
+    } else if (index === 1) {
+      if (!isSecond) {
+        isSecond = !isSecond;
+        yield `${index} bottle of beer on the wall, ${index} bottle of beer.`;
+      } else {
+        isSecond = !isSecond;
+        index--;
+        yield `Take one down and pass it around, no more bottles of beer on the wall.`;
+      }
+    }  else {
+      if (!isSecond) {
+        isSecond = !isSecond;
+        yield 'No more bottles of beer on the wall, no more bottles of beer.';
+      } else {
+        isSecond = !isSecond;
+        index--;
+        yield `Go to the store and buy some more, 99 bottles of beer on the wall.`;
+      }
+      
+    }
+  }
 }
 
 
@@ -46,7 +85,16 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-  throw new Error('Not implemented');
+  let a = -1;
+  let b = 1;
+  let c;
+
+  while (true) {
+    c = a + b;
+    a = b;
+    b = c;
+    yield c;
+  }
 }
 
 
@@ -81,7 +129,22 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-  throw new Error('Not implemented');
+  const currRoots = [{children: [root], level: 0}];
+ 
+  while(currRoots.length) {
+    const currNode = currRoots[currRoots.length - 1];
+
+    if(currNode.level === currNode.children.length) {
+      currRoots.length--;
+    } else {
+      const item = currNode.children[currNode.level++];    
+      yield item;
+
+      if(item.children){
+        currRoots.push({children: item.children, level: 0});
+      }
+    }
+  }
 }
 
 
@@ -107,7 +170,25 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-  throw new Error('Not implemented');
+  let nodes = [[root]];
+    
+  while(nodes.length) {
+    const currLevel = nodes[0];
+    const nextLevel = [];
+    
+    for (const node of currLevel) {
+      if (node.children) {
+        nextLevel.push(node.children);
+      }
+      yield node;
+    }
+
+    nodes = [];
+    
+    if (nextLevel.length) {
+      nodes.push(nextLevel.flat());
+    }  
+  }
 }
 
 
@@ -125,7 +206,42 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-  throw new Error('Not implemented');
+  const it1 = source1();
+  const it2 = source2();
+  let item1 = it1.next();
+  let item2 = it2.next();
+  let value1 = item1.value;
+  let value2 = item2.value;
+
+  while (true) {
+    if (item1.done) {
+      value1 = value2 + 1;
+    }
+
+    if (item2.done) {
+      value2 = value1 + 1;
+    }
+    
+    if (value1 < value2) {
+      yield value1;
+
+      if (item1.done === false) {
+        item1 = it1.next();
+        if (item1.value) {
+          value1 = item1.value;
+        }
+      }
+    } else {
+      yield value2;
+
+      if (item2.done === false) {
+        item2 = it2.next();
+        if (item2.value) {
+          value2 = item2.value;
+        }
+      }
+    }
+  }
 }
 
 module.exports = {
